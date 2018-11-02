@@ -1,0 +1,9 @@
+node_modules
+backup
+package-lock.json
+core.tar.gz
+pocketsphinx/
+sphinxbase/
+
+#temporary: ignore model since heavy
+core/model/ru-ru

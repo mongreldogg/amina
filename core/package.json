@@ -1,0 +1,19 @@
+{
+  "name": "amina-core",
+  "version": "0.0.1",
+  "description": "Voice helper core",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js start",
+    "test": "node index.js test",
+    "fetch-dev": "node index.js fetch-dev",
+    "say": "node index.js say"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "fs": "0.0.1-security",
+    "shelljs": "^0.8.2",
+    "simpletts": "^2.3.0"
+  }
+}

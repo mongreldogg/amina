@@ -1,0 +1,38 @@
+version: '3'
+services:
+  core:
+    image: amina:latest
+    container_name: amina_core
+    ports:
+      - 80:80
+    working_dir: /usr/share/amina
+    command: npm run start
+    tty: true
+    depends_on:
+      - db
+  test:
+    image: amina:latest
+    container_name: amina_test
+    working_dir: /usr/share/amina
+    command: npm run test
+  db:
+    image: amina:latest
+    container_name: amina_db
+    ports:
+      - 5002:3306
+    volumes:
+      - ./backup/:/backup
+    command: mysqld
+    restart: always
+    stdin_open: true
+    tty: true
+  dev:
+    image: amina:latest
+    container_name: amina_dev
+    volumes:
+      - ./core/:/amina
+      - ./backup/:/backup
+    working_dir: /amina
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true

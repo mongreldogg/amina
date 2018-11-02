@@ -1,0 +1,16 @@
+{
+  "name": "amina-ui",
+  "version": "0.0.1",
+  "description": "Amina helper interactive UI",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "asar": "^0.14.5",
+    "electron": "^3.0.7",
+    "electron-packager": "^12.2.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "amina",
+  "version": "0.0.1",
+  "description": "",
+  "main": "amina.js",
+  "scripts": {
+    "start": "docker-compose up --no-recreate --detach",
+    "stop": "docker-compose stop",
+    "build": "node amina.js build",
+    "dev-console": "docker attach amina_dev",
+    "db-consode": "docker attach amina_db"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mongreldogg/amina.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mongreldogg/amina/issues"
+  },
+  "homepage": "https://github.com/mongreldogg/amina#readme",
+  "devDependencies": {
+    "shelljs": "^0.8.2",
+    "tar": "^4.4.6"
+  }
+}
