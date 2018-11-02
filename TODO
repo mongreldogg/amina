@@ -1,2 +1,3 @@
 TODO: resolve large files
-TODO: find the best way to implement speech synthesis in Chromium-based app (possibly "chrome.tts")
+TODO: find the best way to implement speech synthesis in Chromium-based app (possibly "chrome.tts") (UPD: currently "mespeak")
+TODO: resolve missing licenses issue for products used during development

@@ -8,8 +8,7 @@ shell.cp('/amina/index.js', '/usr/share/amina/index.js');
 console.log('Fetching scripts');
 shell.cp('-r', '/amina/scripts/', '/usr/share/amina/scripts/');
 
-console.log('Fetching lexical models');
-shell.cp('-r', '/amina/model/', '/usr/share/amina/model/');
+shell.cd('/usr/share/amina');
+shell.exec('npm install cmake-js --save-dev && npm install pocketsphinx --save-dev && npm install');
 
-console.log('Fetching web folder');
-shell.cp('-r', '/amina/web/', '/var/www/html/');
+//TODO: "would you like to fetch models too?"

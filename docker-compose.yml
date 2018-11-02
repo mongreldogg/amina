@@ -7,25 +7,14 @@ services:
       - 80:80
     working_dir: /usr/share/amina
     command: npm run start
-    tty: true
+    restart: always
     depends_on:
-      - db
+      - test
   test:
     image: amina:latest
     container_name: amina_test
     working_dir: /usr/share/amina
     command: npm run test
-  db:
-    image: amina:latest
-    container_name: amina_db
-    ports:
-      - 5002:3306
-    volumes:
-      - ./backup/:/backup
-    command: mysqld
-    restart: always
-    stdin_open: true
-    tty: true
   dev:
     image: amina:latest
     container_name: amina_dev

@@ -7,13 +7,13 @@
     "start": "node index.js start",
     "test": "node index.js test",
     "fetch-dev": "node index.js fetch-dev",
-    "say": "node index.js say"
+    "fetch-model": "node index.js fetch-model"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "fs": "0.0.1-security",
     "shelljs": "^0.8.2",
-    "simpletts": "^2.3.0"
+    "websocket": "^1.0.28"
   }
 }

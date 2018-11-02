@@ -7,3 +7,6 @@ sphinxbase/
 
 #temporary: ignore model since heavy
 core/model/ru-ru
+
+resources.txt
+frontend/dist
