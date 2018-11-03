@@ -1,0 +1,12 @@
+./backup
+./core
+./frontend
+./node_modules
+./scripts
+package-lock.json
+package.json
+amina.js
+README.md
+resources.txt
+.gitignore
+TODO

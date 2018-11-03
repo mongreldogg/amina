@@ -4,11 +4,10 @@
   "description": "",
   "main": "amina.js",
   "scripts": {
-    "start": "docker-compose up --no-recreate --detach",
+    "start": "docker-compose up --no-recreate",
     "stop": "docker-compose stop",
     "build": "node amina.js build",
-    "dev-console": "docker attach amina_dev",
-    "db-consode": "docker attach amina_db"
+    "dev-console": "docker attach amina_dev"
   },
   "repository": {
     "type": "git",
