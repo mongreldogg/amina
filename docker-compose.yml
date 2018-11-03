@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 services:
   core:
     image: amina:latest
@@ -10,6 +10,7 @@ services:
     restart: always
     depends_on:
       - test
+    mem_limit: 4G
   test:
     image: amina:latest
     container_name: amina_test
@@ -25,3 +26,4 @@ services:
     entrypoint: /bin/sh
     stdin_open: true
     tty: true
+    mem_limit: 4G

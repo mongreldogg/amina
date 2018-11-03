@@ -11,9 +11,18 @@
   },
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mongreldogg/amina.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mongreldogg/amina/issues"
+  },
+  "homepage": "https://github.com/mongreldogg/amina#readme",
   "devDependencies": {
     "fs": "0.0.1-security",
+    "microphone-stream": "^4.1.3",
     "shelljs": "^0.8.2",
-    "websocket": "^1.0.28"
+    "websocket-stream": "^5.1.2"
   }
 }
