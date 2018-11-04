@@ -32,11 +32,10 @@ amina.speak("hey' i'm Ameena", options, () => {
     var micro = new MicrophoneStream({
         objectMode: false,
         context: new AudioContext({
-            sampleRate: 48000,
-            bitDepth: 16
+            sampleRate: 48000
         })
     });
-    //MediaTrackSettings.sampleRate = 8000;
+    //TODO: convert audio stream of bitDepth 32 to bitDepth of 16
 
     var bridge = new Stream.PassThrough({objectMode: false});
     bridge.pipe(ws);
