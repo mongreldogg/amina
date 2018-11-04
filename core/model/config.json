@@ -1,0 +1,12 @@
+{
+    "en": {
+        "hmm": "./model/en-us/en-us",
+        "dict": "./model/en-us/cmudict-en-us.dict",
+        "lm": "./model/en-us/en-us.lm.bin"
+    },
+    "ru": {
+        "hmm": "./model/ru-ru",
+        "dict": "./model/ru-ru/ru.dic",
+        "lm": "./model/ru-ru/ru.lm"
+    }
+}

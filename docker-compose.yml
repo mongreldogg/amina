@@ -3,8 +3,10 @@ services:
   core:
     image: amina:latest
     container_name: amina_core
+    expose:
+      - "3454"
     ports:
-      - 80:80
+      - "3454:3454"
     working_dir: /usr/share/amina
     command: npm run start
     restart: always
@@ -21,8 +23,11 @@ services:
     container_name: amina_dev
     volumes:
       - ./core/:/amina
-      - ./backup/:/backup
-    working_dir: /amina
+    expose:
+      - "3454"
+    ports:
+      - "3454:3454"
+    working_dir: /usr/share/amina
     entrypoint: /bin/sh
     stdin_open: true
     tty: true

@@ -32,7 +32,7 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get -y install nodejs espeak
+RUN apt-get -y install nodejs git
 
 ADD core.tar.gz /usr/share/amina/
 WORKDIR /usr/share/amina
@@ -40,5 +40,3 @@ WORKDIR /usr/share/amina
 RUN npm install cmake-js --save-dev && npm install pocketsphinx --save-dev && npm install
 
 STOPSIGNAL SIGTERM
-
-EXPOSE 80

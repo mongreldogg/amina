@@ -1,63 +1,71 @@
+//TODO: initialize parallel decoders for all languages for switching purpose
+//TODO: implement language switching
+//TODO: wrap recognition service to object
+
 var ps = require('pocketsphinx').ps;
-var websocket = require('websocket-stream');
-var Stream = require('stream');
-var MicrophoneStream = require('microphone-stream');
+var fs = require('fs');
 
 console.log('Initializing decoder...');
 
-/*
-modeldir = "./model/en-us/"
+var configFile = JSON.parse(fs.readFileSync('./model/config.json'));
+
+var lang = 'en';
 
 var config = new ps.Decoder.defaultConfig();
-config.setString("-hmm", modeldir + "en-us");
-config.setString("-dict", modeldir + "cmudict-en-us.dict");
-config.setString("-lm", modeldir + "en-us.lm.bin");
-var decoder = new ps.Decoder(config);
-*/
+config.setString("-hmm", configFile[lang].hmm);
+config.setString("-dict", configFile[lang].dict);
+config.setString("-lm", configFile[lang].lm);
+//config.setString("-logfn", "/dev/null");
+config.setFloat("-samprate", 48000);
+config.setInt("-nfft", 8192);
+//TODO: sync decoder config with client FFT and sampleRate
 
-modeldir = "./model/ru-ru"
-
-var config = new ps.Decoder.defaultConfig();
-config.setString("-hmm", modeldir);
-config.setString("-dict", modeldir + "/ru.dic");
-config.setString("-lm", modeldir + "/ru.lm");
-var decoder = new ps.Decoder(config);
-
-console.log('Starting WebSocket server...');
+console.log('Initializing service...');
 
 var http = require('http');
+var websocket = require('websocket-stream');
+var Stream = require('stream');
+var empty = require('dev-null');
 
-var httpserver = http.createServer(() => {});
+var httpServer = http.createServer(()=>{});
 
-console.log('Initializing recognition stream...');
-
-var recognitionStream = new Stream.PassThrough({objectMode: false, highWaterMark: 32768});
-
-var chunkBuffer = [];
-
-recognitionStream.on('data', function(chunk){
-    chunkBuffer = chunkBuffer.concat(MicrophoneStream.toRaw(chunk));
-    try{
-        decoder.processRaw(chunkBuffer, false, false);
-        recognitionStream.push(decoder.hyp());
-        chunkBuffer = [];
-    } catch(err){
-        console.log('Error processing raw microphone input: '+err.message);
-    }
+var wss = websocket.createServer({server: httpServer, perMessageDeflate: false}, function(stream, request){
+    console.log('Amina connected!');
+    console.log('Starting continuous recognition module...');
+    var decoder = new ps.Decoder(config);
+    decoder.startUtt();
+    var recognitionStream = new Stream.PassThrough({objectMode: false, highWaterMark: 512});
+    //TODO: async checking for similarity of 2 recognition hypothesises (e.g. 2-3 seconds)
+    //Reason: prevent recognition from flushing buffer after finding first successful hypo
+    var chunksReceived = 0;
+    recognitionStream.on('data', function(chunk){
+        console.log('Chunk: '+chunk.length+'('+(++chunksReceived)+')');
+        try {
+            decoder.processRaw(chunk, false, false);
+            var hyp = decoder.hyp();
+            if(hyp) console.log((new Date()).toLocaleString()+': '+JSON.stringify(hyp));
+        } catch(err){
+            transferError(err);
+        }
+    });
+    recognitionStream.on('end', function(){
+        decoder.endUtt();
+    })
+    recognitionStream.on('error', transferError);
+    stream.on('error', transferError);
+    recognitionStream.pipe(empty());
+    stream.pipe(recognitionStream);
 });
 
-console.log('Starting continuous recognition module...');
+function transferError(err) {
+    console.log('Transfer closed: '+err.message);
+}
 
-decoder.startUtt();
+wss.on('error', transferError);
 
-console.log('Opening http server...');
+console.log('Starting service...');
 
-httpserver.listen(80, function(){});
-
-console.log('TO THE MOON!!!...');
-
-var wss = websocket.createServer({server: httpserver, perMessageDeflate: false}, function(stream){
-    console.log('Opening a stream for a connected client...');
-    stream.pipe(recognitionStream);
-    recognitionStream.pipe(stream);
+httpServer.listen(3454, (err) => {
+    if(err) throw err;
+    console.log('TO THE MOON!!!');
 });

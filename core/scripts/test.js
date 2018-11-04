@@ -10,7 +10,7 @@ config.setString("-dict", modeldir + "cmudict-en-us.dict");
 config.setString("-lm", modeldir + "en-us.lm.bin");
 var decoder = new ps.Decoder(config);
 
-fs.readFile("/usr/share/pocketsphinx/test/data/goforward.raw", function(err, data) {
+fs.readFile("/usr/share/pocketsphinx/test/data/something.raw", function(err, data) {
     if (err) throw err;
     decoder.startUtt();
     decoder.processRaw(data, false, false);
